@@ -1,0 +1,41 @@
+<aside
+  class="bg-gray-900 text-white flex flex-col transition-all duration-300"
+  [ngClass]="isOpen ? 'w-56' : 'w-0 overflow-hidden'"
+>
+  <!-- App name -->
+  <div class="px-6 py-5 border-b border-gray-700">
+    <span class="text-sm font-bold text-gray-300 uppercase tracking-widest">Estoque</span>
+  </div>
+
+  <!-- Nav links -->
+  <nav class="flex-1 px-3 py-4 space-y-1">
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="bg-gray-700 text-white"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition text-sm font-medium"
+    >
+      <span class="text-base">📊</span>
+      Dashboard
+    </a>
+    <a
+      routerLink="/produtos"
+      routerLinkActive="bg-gray-700 text-white"
+      class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition text-sm font-medium"
+    >
+      <span class="text-base">📦</span>
+      Produtos
+    </a>
+  </nav>
+
+  <!-- Logout -->
+  <div class="px-3 py-4 border-t border-gray-700">
+    <button
+      (click)="onLogout()"
+      class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-gray-300 hover:bg-red-700 hover:text-white transition text-sm font-medium"
+    >
+      <span class="text-base">🚪</span>
+      Sair
+    </button>
+  </div>
+</aside>
