@@ -1,10 +1,19 @@
-<div class="flex flex-col h-screen">
-  <app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar>
-  <div class="flex flex-1 overflow-hidden">
-    <app-sidebar [isOpen]="sidebarOpen" (logout)="logout()"></app-sidebar>
-    <main class="flex-1 overflow-y-auto bg-gray-50 p-6">
+<div class="flex h-screen overflow-hidden">
+  <!-- Mobile backdrop -->
+  <div
+    *ngIf="sidebarOpen"
+    class="fixed inset-0 bg-black/50 z-20 lg:hidden"
+    (click)="toggleSidebar()"
+  ></div>
+
+  <app-sidebar [isOpen]="sidebarOpen" (logout)="logout()"></app-sidebar>
+
+  <div class="flex flex-col flex-1 min-w-0 overflow-hidden">
+    <app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar>
+    <main class="flex-1 overflow-y-auto bg-slate-50 p-6">
       <router-outlet></router-outlet>
     </main>
   </div>
+
   <app-toast-notification></app-toast-notification>
 </div>

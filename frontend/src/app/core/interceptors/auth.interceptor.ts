@@ -9,6 +9,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
+  if (req.url.includes('/api/auth/')) {
+    return next(req);
+  }
+
   const token = authService.getAccessToken();
   if (token) {
     req = req.clone({
@@ -19,16 +23,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError(error => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
-        return authService.refreshToken().pipe(
-          switchMap(() => {
-            const newToken = authService.getAccessToken();
+        return authService.handleTokenRefresh().pipe(
+          switchMap(newToken => {
             req = req.clone({
               setHeaders: { Authorization: `Bearer ${newToken}` }
             });
             return next(req);
           }),
           catchError(refreshError => {
-            authService.logout();
             router.navigate(['/login']);
             return throwError(() => refreshError);
           })

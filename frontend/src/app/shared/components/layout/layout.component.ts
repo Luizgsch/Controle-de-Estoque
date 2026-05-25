@@ -13,7 +13,7 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './layout.component.html',
 })
 export class LayoutComponent {
-  sidebarOpen = true;
+  sidebarOpen = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
